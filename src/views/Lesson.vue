@@ -1,21 +1,59 @@
 <template>
-    <div>
-        <p>
-            this is Lossone : {{this.lesson}}
-        </p>
-    </div>
+<div>
+    <v-container class="grey lighten-5" :align="alignments">
+        <!--<h1> this is Lossone : {{this.lesson}} </h1>-->
+        <v-row no-gutters :align="alignments">
+            <v-col
+                cols="12"
+                sm="4"
+            >
+                <v-slider
+                    v-model="sliderValue"
+                    step="5"
+                    thumb-label
+                    ticks
+                ></v-slider> 
+            </v-col>    
+            <v-col
+                cols="12"
+                sm="4"
+            >                   
+                <v-autocomplete
+                    v-model="autocompleteValue"
+                    :items="autocompleteItems"
+                    dense
+                    filled
+                    label="choose model"
+                >
+                </v-autocomplete>                
+            </v-col>
+        </v-row>
+    </v-container>
+    <pdf :src="`https://www.roshd.ir/DesktopModules/Barrizon/LArticle/api/File/Get/d38704cb-3f5e-48df-94c7-2fa55fcc5221`"></pdf>
+</div>    
 </template>
 
 <script>
+import pdf from 'vue-pdf'
 export default {
     data(){
         return{
-            lesson :''
+            lesson :'',
+            alignments: 'center',
+            sliderValue: 0,
+            autocompleteItems: ['word', 'Sentence'],
+            autocompleteValue: 'word',
+            //pdfPath: require('@/assets/pdfs/lessonone.pdf'),
         }
     },
     mounted(){
         const selectedLesson = this.$route.params.lossonTitle;
-        this.lesson = selectedLesson
+        this.lesson = selectedLesson;
+        //let path=this.$route.name+pdfPath
+        //console.log( path )
+    },
+    components: {
+        pdf
     }
 }
 </script>
