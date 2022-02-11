@@ -12,9 +12,9 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    path: '/ttsTest',
+    name: 'ttsTest',
+    component: () => import('../views/TTSTest.vue')
   },
   {
     path: '/lossons/:lossonTitle',
