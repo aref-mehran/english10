@@ -29,12 +29,17 @@
             </v-col>
         </v-row>
     </v-container>
-    <pdf :src="`https://www.roshd.ir/DesktopModules/Barrizon/LArticle/api/File/Get/d38704cb-3f5e-48df-94c7-2fa55fcc5221`"></pdf>
+    <pdf 
+        v-for="i in pageNumber"
+        :key="i"
+        :src="`/pdfs/english-10.pdf`" 
+        :page="i"
+    ></pdf>
 </div>    
 </template>
 
 <script>
-import pdf from 'vue-pdf'
+import pdf from 'pdfvuer'
 export default {
     data(){
         return{
@@ -43,14 +48,15 @@ export default {
             sliderValue: 0,
             autocompleteItems: ['word', 'Sentence'],
             autocompleteValue: 'word',
-            //pdfPath: require('@/assets/pdfs/lessonone.pdf'),
+            pageNumber : 5,
+            //pdfPath: `https://www.roshd.ir/DesktopModules/Barrizon/LArticle/api/File/Get/d38704cb-3f5e-48df-94c7-2fa55fcc5221`
         }
     },
     mounted(){
         const selectedLesson = this.$route.params.lossonTitle;
         this.lesson = selectedLesson;
         //let path=this.$route.name+pdfPath
-        //console.log( path )
+        //console.log( this.pdfPath )
     },
     components: {
         pdf
