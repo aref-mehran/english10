@@ -17,7 +17,7 @@ const routes = [
     component: () => import('../views/TTSTest.vue')
   },
   {
-    path: '/lossons/:lossonTitle',
+    path: '/:lessonTitle/:startPage/:endPage',
     name: 'Lesson',
     component: Lesson
   }
