@@ -1,8 +1,6 @@
 <template>
     <div  @click="clicked" >
-        <p >
-            this is Lesson : {{this.lesson}}
-        </p>
+        
         <v-container class="grey lighten-5" :align="alignments">
         <!--<h1> this is Lossone : {{this.lesson}} </h1>-->
             <v-row no-gutters :align="alignments">
@@ -33,6 +31,12 @@
                 </v-col>
             </v-row>
         </v-container>
+        <pdf 
+            v-for="i in pageNumber"
+            :key="i"
+            :src="`/pdfs/english-10.pdf`" 
+            :page="i"
+        ></pdf>
     </div>
 </template>
 
@@ -47,6 +51,7 @@ export default {
             sliderValue: 100 ,
             autocompleteItems: ['Word', 'Sentence'],
             autocompleteValue: 'Sentence',
+            pageNumber : 5,
             //pdfPath: require('@/assets/pdfs/lessonone.pdf'),
         }
     },
@@ -85,6 +90,9 @@ export default {
                 this.clickOnWord();
             }
         }
+    },
+    components: {
+        pdf
     }
 }
 </script>
