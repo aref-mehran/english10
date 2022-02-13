@@ -42,6 +42,7 @@
 
 <script>
 import Speak from '@/services/Speak.js'
+import pdf from 'pdfvuer'
 
 export default {
     data(){
