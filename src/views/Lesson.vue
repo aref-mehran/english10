@@ -1,8 +1,7 @@
 <template>
     <div   >
-        <Header 
-        />
-        ><div @click="clicked">
+        <Header  />
+        <div @click="clicked">
             <pdf 
             v-for="i in range(startPage,endPage)"
             :key="i"
