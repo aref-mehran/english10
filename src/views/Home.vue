@@ -27,7 +27,9 @@
           :to="`/${item.title}/${child.startPageNum}/${child.endPageNum}`"
         >
           <v-list-item-content>
-            <v-list-item-title v-text="child.title"></v-list-item-title>
+              <!--<v-icon> mdi-domain </v-icon>-->
+            <v-list-item-title v-text="child.title +' ( '+ child.startPageNum +' , '+ child.endPageNum+' ) '"></v-list-item-title>
+            
           </v-list-item-content>
         </v-list-item>
       </v-list-group>

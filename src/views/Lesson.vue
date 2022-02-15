@@ -1,36 +1,9 @@
 <template>
     <div  @click="clicked" >
         
-        <v-container class="grey lighten-5" :align="alignments">
-        <!--<h1> this is Lossone : {{this.lesson}} </h1>-->
-            <v-row no-gutters :align="alignments">
-                <v-col
-                    cols="12"
-                    sm="4"
-                >
-                    <v-slider
-                        v-model="sliderValue"
-                        step="5"
-                        thumb-label
-                        ticks
-                        :max="200"
-                    ></v-slider> 
-                </v-col>    
-                <v-col
-                    cols="12"
-                    sm="4"
-                >                   
-                    <v-autocomplete
-                        v-model="autocompleteValue"
-                        :items="autocompleteItems"
-                        dense
-                        filled
-                        label="choose model"
-                    >
-                    </v-autocomplete>                
-                </v-col>
-            </v-row>
-        </v-container>
+        <!--<v-container class="grey lighten-5" :align="alignments">
+        
+        </v-container>-->
         <pdf 
             v-for="i in range(startPage,endPage)"
             :key="i"
@@ -59,7 +32,7 @@ export default {
         }
     },
     mounted(){
-        this.lesson = this.$route.params.lossonTitle;
+        this.lesson = this.$route.params.lessonTitle;
         this.startPage = this.$route.params.startPage;
         this.endPage = this.$route.params.endPage;
         
