@@ -1,4 +1,7 @@
 <template>
+    <div>
+        <Header 
+        />
   <v-card
     class="mx-auto"
   >
@@ -35,14 +38,17 @@
       </v-list-group>
     </v-list>
   </v-card>
+    </div>
 </template>
 
 <script>
 import lessonItems from '@/data/lessonItems.js'
+import Header from '@/components/HeaderHome.vue'
+
   export default {
     name: 'Home',
     components: {
-      
+      Header
     },
     methods:{
         lessonItemClick(itemTitle){

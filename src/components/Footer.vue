@@ -1,23 +1,21 @@
 <template>
-  <v-bottom-navigation v-model="value">
-    <v-btn value="recent">
-      <span>Recent</span>
+  <v-footer
+    color="primary"
+    dark
+    padless
+    fixed 
+  >
+    <v-card
+      flat
+      tile
+      class="indigo lighten-1 white--text text-center"
+    >
 
-      <v-icon>mdi-history</v-icon>
-    </v-btn>
-
-    <v-btn value="favorites">
-      <span>Favorites</span>
-
-      <v-icon>mdi-heart</v-icon>
-    </v-btn>
-
-    <v-btn value="nearby">
-      <span>Nearby</span>
-
-      <v-icon>mdi-map-marker</v-icon>
-    </v-btn>
-  </v-bottom-navigation>
+      <v-card-text class="white--text">
+        <strong>Vuetify</strong>
+      </v-card-text>
+    </v-card>
+  </v-footer>
 </template>
 
 
