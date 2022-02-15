@@ -1,21 +1,27 @@
 <template>
-    <div  @click="clicked" >
-        
-        <!--<v-container class="grey lighten-5" :align="alignments">
-        
-        </v-container>-->
-        <pdf 
+    <div   >
+        <Header 
+        />
+        ><div @click="clicked">
+            <pdf 
             v-for="i in range(startPage,endPage)"
             :key="i"
             :src="`/pdfs/english-10.pdf`" 
             :page="i"
         ></pdf>
+        </div>
+        <div >
+        <Footer />
+        </div>
     </div>
 </template>
 
 <script>
+import Header from '@/components/HeaderLesson.vue'
+import Footer from '@/components/Footer.vue'
 import Speak from '@/services/Speak.js'
 import pdf from 'pdfvuer'
+
 
 export default {
     data(){
@@ -76,7 +82,9 @@ export default {
         }
     },
     components: {
-        pdf
+        pdf,
+        Header,
+        Footer
     }
 }
 </script>
