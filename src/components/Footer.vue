@@ -8,7 +8,7 @@
       class="text-right"
       cols="12"
     >
-      <strong>ترجمه:</strong> {{this.translate}}
+      <strong> {{translate}} </strong>
     </v-col>
     
   </v-footer>
@@ -19,12 +19,10 @@
 export default {
     data(){
         return{
-            translate:'ترجمه متن بالا در این جا نوشته شده است.'
         }
-    }
-    //props:{
-    //    totalCount:Number,
-    //    correctCount: Number
-    //},
+    },
+    props:{
+        translate:String,
+    },
 }
 </script>

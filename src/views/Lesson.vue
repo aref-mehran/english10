@@ -10,7 +10,7 @@
         ></pdf>
         </div>
         <div >
-        <Footer />
+        <Footer :translate="this.farsiSentence" />
         </div>
     </div>
 </template>
@@ -19,6 +19,7 @@
 import Header from '@/components/HeaderLesson.vue'
 import Footer from '@/components/Footer.vue'
 import Speak from '@/services/Speak.js'
+import Translate from '@/services/Translate.js'
 import pdf from 'pdfvuer'
 
 
@@ -32,7 +33,7 @@ export default {
             sliderValue: 100 ,
             autocompleteItems: ['Word', 'Sentence'],
             autocompleteValue: 'Sentence',
-            
+            farsiSentence:'ترجمه'
             //pdfPath: require('@/assets/pdfs/lessonone.pdf'),
         }
     },
@@ -44,6 +45,7 @@ export default {
     },
     created() {
         this.speak=new Speak()
+        this.translator = new Translate()
         //speak.read("This is text to speech test.")
     },
     methods:{
@@ -62,6 +64,11 @@ export default {
 
             selectedStr = selectedStr.trim();
             this.speak.read(selectedStr , this.sliderValue/100);
+            
+            //console.log(this.translator.sentence(selectedStr))
+            this.farsiSentence = 'ترجمه: ' + this.translator.getTranslated(selectedStr);
+            
+            
         },
         clickOnWord() {
             let cursor = window.getSelection();
@@ -70,7 +77,9 @@ export default {
             var selectedStr = cursor.toString();
 
             this.speak.read(selectedStr , this.sliderValue/100);
-            //setSelected(res);
+                        
+            this.farsiSentence = 'ترجمه: ' + this.translator.getTranslated(selectedStr)
+            
         },
         clicked (){
             if (this.autocompleteValue === 'Sentence') {
