@@ -12,17 +12,23 @@
         </v-btn>
         <v-spacer></v-spacer>
         <v-switch
-            @click="someFunction()"
-            :label="` ${switch1.toString()}`"
-            :value="switch1"
+            @click="switchSentenceClick()"
+            v-model="switchSentence"
             hide-details
-        ></v-switch>
+        >
+            <template v-slot:label >
+                <p  v-if="switchSentence">  جمله </p>
+                <p v-if="!switchSentence"> کلمه</p>
+            </template>
+            
+        </v-switch>
 
         <v-spacer></v-spacer>
         <v-select
             :items="items"
             :value="items[2]"
             hide-details
+            :label="selectLable"
             style='max-width:25%'
         ></v-select>
       
@@ -33,9 +39,17 @@
 export default {
     data(){
         return{
-            switch1:'Word',
-            switch2:'Sentence',
+            selectLable:'سرعت',
+            switchLable:'خواندن جمله',
+            switchSentence:this.$store.state.SentenceReadingMode,
             items:['50%','70%','100%','150%','200%']
+        }
+    },
+    methods:{
+        switchSentenceClick(){
+            console.log(this.$store)
+            this.$store.commit('setReadingMode', this.switchSentence )
+            console.log(this.switchSentence)
         }
     }
     //props:{
