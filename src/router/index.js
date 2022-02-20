@@ -1,32 +1,32 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import Lesson from '../views/Lesson.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
+import Lesson from "../views/Lesson.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    component: Home,
   },
   {
-    path: '/ttsTest',
-    name: 'ttsTest',
-    component: () => import('../views/TTSTest.vue')
+    path: "/ttsTest",
+    name: "ttsTest",
+    component: () => import("../views/TTSTest.vue"),
   },
   {
-    path: '/:lessonTitle/:startPage/:endPage',
-    name: 'Lesson',
-    component: Lesson
-  }
-]
+    path: "/:lessonTitle/:startPage/:endPage",
+    name: "Lesson",
+    component: Lesson,
+  },
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
