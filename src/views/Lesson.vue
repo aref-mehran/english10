@@ -1,16 +1,30 @@
 <template>
   <div>
     <Header />
+
     <div
-      v-if="offlineSrc"
+      :key="componentKey"
       @click="clicked"
     >
-      <pdf
-        v-for="i in range(startPage,endPage)"
+
+      <v-progress-circular
+        v-if="Object.keys( offlineSrc).length< (endPage-startPage+1)"
+        indeterminate
+        color="primary"
+      >
+        در حال دانلود ...
+      </v-progress-circular>
+
+      <div
+        v-for="i in range(startPage,endPage+1)"
         :key="i"
-        :src="offlineSrc"
-        :page="i"
-      ></pdf>
+      >
+        <pdf
+          v-if=" offlineSrc[i+'_english-10.pdf']!='' "
+          :src="offlineSrc[i+'_english-10.pdf']"
+          :page="1"
+        ></pdf>
+      </div>
     </div>
     <div>
       <Footer :translate="this.farsiSentence" />
@@ -25,7 +39,6 @@ import Speak from "@/services/Speak.js";
 import Translate from "@/services/Translate.js";
 import pdf from "pdfvuer";
 import localforage from "localforage";
-
 export default {
   data() {
     return {
@@ -34,40 +47,48 @@ export default {
       endPage: 5,
       alignments: "center",
       farsiSentence: "",
-      offlineSrc: "",
+      offlineSrc: {},
+      offlineSrc_length: 0,
+      componentKey: 0,
     };
   },
   mounted() {
     this.lesson = this.$route.params.lessonTitle;
-    this.startPage = this.$route.params.startPage;
-    this.endPage = this.$route.params.endPage;
-    this.downloadTOIndexedDb();
+    this.startPage = +this.$route.params.startPage;
+    this.endPage = +this.$route.params.endPage;
+
+    for (var start = this.startPage; start <= this.endPage; start++) {
+      var title = start + "_english-10.pdf";
+      var url = "/pdfs/" + title;
+      this.downloadTOIndexedDb(title, url);
+    }
   },
   created() {
     this.speak = new Speak();
     this.translator = new Translate();
   },
+
   methods: {
-    async setOfflineSrc(blob) {
+    async setOfflineSrc(title, blob) {
       var urlCreator = window.URL || window.webkitURL;
 
       var fileUrl = urlCreator.createObjectURL(blob);
-      this.offlineSrc = fileUrl;
+      this.offlineSrc[title] = fileUrl;
+      this.componentKey++;
+      console.log(this);
     },
-    async downloadTOIndexedDb() {
-      var title = "pdf";
+    async downloadTOIndexedDb(title, url) {
       var currentBlob = await localforage.getItem(title);
       if (currentBlob) {
-        this.setOfflineSrc(currentBlob);
+        this.setOfflineSrc(title, currentBlob);
         return;
       }
-
-      var url = require("../assets/pdfs/english-10.pdf");
+      var temp_url = url; // require(url);
       const res = await fetch(url);
 
       var blob = await res.blob();
       await localforage.setItem(title, blob);
-      this.setOfflineSrc(blob);
+      this.setOfflineSrc(title, blob);
     },
     range(start, end) {
       start = Number(start);
