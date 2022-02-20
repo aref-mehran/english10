@@ -31,7 +31,6 @@ export default {
             endPage:5,
             alignments: 'center',
             farsiSentence:'ترجمه'
-            //pdfPath: require('@/assets/pdfs/lessonone.pdf'),
         }
     },
     mounted(){
@@ -42,13 +41,11 @@ export default {
     created() {
         this.speak=new Speak()
         this.translator = new Translate()
-        //speak.read("This is text to speech test.")
     },
     methods:{
         range(start, end) {
             start=Number(start);
             end=Number(end);
-            //console.log(Array(end - start + 1).fill().map((_, idx) => start + idx))
             return Array(end - start + 1).fill().map((_, idx) => start + idx)
         },
         clickOnSentence() {
@@ -61,7 +58,6 @@ export default {
             selectedStr = selectedStr.trim();
             this.speak.read(selectedStr , this.$store.state.readingSpeed/100);
             
-            //console.log(this.translator.sentence(selectedStr))
             this.farsiSentence = 'ترجمه: ' + this.translator.getTranslated(selectedStr);
             
             

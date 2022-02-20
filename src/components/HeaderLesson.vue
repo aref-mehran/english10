@@ -58,9 +58,5 @@ export default {
             console.log('change speed ....'+this.$store.state.readingSpeed)
         }
     }
-    //props:{
-    //    totalCount:Number,
-    //    correctCount: Number
-    //},
 }
 </script>

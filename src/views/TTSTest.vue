@@ -18,7 +18,6 @@ export default {
     },
     created() {
         this.speak=new Speak()
-        //speak.read("This is text to speech test.")
     },
     methods:{
     clickOnSentence() {
