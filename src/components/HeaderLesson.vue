@@ -25,10 +25,11 @@
 
         <v-spacer></v-spacer>
         <v-select
-            :items="items"
-            :value="items[2]"
+            :items="$store.state.readingSpeedItems"
+            :value="$store.state.readingSpeed"
+            @input="changeSpeed"
             hide-details
-            :label="selectLable"
+            :label="speedSelectLable"
             style='max-width:25%'
         ></v-select>
       
@@ -39,17 +40,22 @@
 export default {
     data(){
         return{
-            selectLable:'سرعت',
+            speedSelectLable:'سرعت',
             switchLable:'خواندن جمله',
             switchSentence:this.$store.state.SentenceReadingMode,
-            items:['50%','70%','100%','150%','200%']
+            
         }
     },
     methods:{
         switchSentenceClick(){
             console.log(this.$store)
             this.$store.commit('setReadingMode', this.switchSentence )
-            console.log(this.switchSentence)
+            console.log(this.$store.state.SentenceReadingMode)
+        },
+        changeSpeed(speedValue){
+            console.log('change speed ....'+ speedValue)
+            this.$store.commit('setReadingSpeed', speedValue )
+            console.log('change speed ....'+this.$store.state.readingSpeed)
         }
     }
     //props:{

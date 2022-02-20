@@ -30,9 +30,6 @@ export default {
             startPage:1,
             endPage:5,
             alignments: 'center',
-            sliderValue: 100 ,
-            autocompleteItems: ['Word', 'Sentence'],
-            autocompleteValue: 'Sentence',
             farsiSentence:'ترجمه'
             //pdfPath: require('@/assets/pdfs/lessonone.pdf'),
         }
@@ -41,7 +38,6 @@ export default {
         this.lesson = this.$route.params.lessonTitle;
         this.startPage = this.$route.params.startPage;
         this.endPage = this.$route.params.endPage;
-        
     },
     created() {
         this.speak=new Speak()
@@ -63,7 +59,7 @@ export default {
             var selectedStr = cursor.toString();
 
             selectedStr = selectedStr.trim();
-            this.speak.read(selectedStr , this.sliderValue/100);
+            this.speak.read(selectedStr , this.$store.state.readingSpeed/100);
             
             //console.log(this.translator.sentence(selectedStr))
             this.farsiSentence = 'ترجمه: ' + this.translator.getTranslated(selectedStr);
@@ -76,13 +72,15 @@ export default {
             cursor.modify("extend", "forward", "word");
             var selectedStr = cursor.toString();
 
-            this.speak.read(selectedStr , this.sliderValue/100);
+            this.speak.read(selectedStr , this.$store.state.readingSpeed/100);
                         
             this.farsiSentence = 'ترجمه: ' + this.translator.getTranslated(selectedStr)
             
         },
         clicked (){
-            if (this.autocompleteValue === 'Sentence') {
+            console.log('State    '+this.$store.state.SentenceReadingMode)
+            console.log('speed    '+this.$store.state.readingSpeed)
+            if ( this.$store.state.SentenceReadingMode ) {
                 this.clickOnSentence();
             } else {
                 this.clickOnWord();
