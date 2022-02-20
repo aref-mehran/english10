@@ -8,7 +8,8 @@
       class="text-right"
       cols="12"
     >
-      <strong> {{translate}} </strong>
+    <strong> {{message}} &nbsp; </strong>
+    <strong style="color:white" > {{translate}} </strong>
     </v-col>
     
   </v-footer>
@@ -19,6 +20,7 @@
 export default {
     data(){
         return{
+            message : 'ترجمه:   '
         }
     },
     props:{

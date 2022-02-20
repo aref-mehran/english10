@@ -30,7 +30,7 @@ export default {
             startPage:1,
             endPage:5,
             alignments: 'center',
-            farsiSentence:'ترجمه'
+            farsiSentence:''
         }
     },
     mounted(){
@@ -58,7 +58,7 @@ export default {
             selectedStr = selectedStr.trim();
             this.speak.read(selectedStr , this.$store.state.readingSpeed/100);
             
-            this.farsiSentence = 'ترجمه: ' + this.translator.getTranslated(selectedStr);
+            this.farsiSentence =  this.translator.getTranslated(selectedStr);
             
             
         },
@@ -70,7 +70,7 @@ export default {
 
             this.speak.read(selectedStr , this.$store.state.readingSpeed/100);
                         
-            this.farsiSentence = 'ترجمه: ' + this.translator.getTranslated(selectedStr)
+            this.farsiSentence =  this.translator.getTranslated(selectedStr)
             
         },
         clicked (){
