@@ -5,7 +5,7 @@
             <pdf 
             v-for="i in range(startPage,endPage)"
             :key="i"
-            :src="`/pdfs/english-10.pdf`" 
+            :src="require('../assets/pdfs/english-10.pdf')" 
             :page="i"
         ></pdf>
         </div>
