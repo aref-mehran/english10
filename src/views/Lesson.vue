@@ -1,11 +1,14 @@
 <template>
   <div>
     <Header />
-    <div @click="clicked">
+    <div
+      v-if="offlineSrc"
+      @click="clicked"
+    >
       <pdf
         v-for="i in range(startPage,endPage)"
         :key="i"
-        :src="require('../assets/pdfs/english-10.pdf')"
+        :src="offlineSrc"
         :page="i"
       ></pdf>
     </div>
@@ -21,6 +24,7 @@ import Footer from "@/components/Footer.vue";
 import Speak from "@/services/Speak.js";
 import Translate from "@/services/Translate.js";
 import pdf from "pdfvuer";
+import localforage from "localforage";
 
 export default {
   data() {
@@ -30,18 +34,41 @@ export default {
       endPage: 5,
       alignments: "center",
       farsiSentence: "",
+      offlineSrc: "",
     };
   },
   mounted() {
     this.lesson = this.$route.params.lessonTitle;
     this.startPage = this.$route.params.startPage;
     this.endPage = this.$route.params.endPage;
+    this.downloadTOIndexedDb();
   },
   created() {
     this.speak = new Speak();
     this.translator = new Translate();
   },
   methods: {
+    async setOfflineSrc(blob) {
+      var urlCreator = window.URL || window.webkitURL;
+
+      var fileUrl = urlCreator.createObjectURL(blob);
+      this.offlineSrc = fileUrl;
+    },
+    async downloadTOIndexedDb() {
+      var title = "pdf";
+      var currentBlob = await localforage.getItem(title);
+      if (currentBlob) {
+        this.setOfflineSrc(currentBlob);
+        return;
+      }
+
+      var url = require("../assets/pdfs/english-10.pdf");
+      const res = await fetch(url);
+
+      var blob = await res.blob();
+      await localforage.setItem(title, blob);
+      this.setOfflineSrc(blob);
+    },
     range(start, end) {
       start = Number(start);
       end = Number(end);
