@@ -7,13 +7,28 @@
       @click="clicked"
     >
 
-      <v-progress-circular
-        v-if="Object.keys( offlineSrc).length< (endPage-startPage+1)"
-        indeterminate
-        color="primary"
-      >
-        در حال دانلود ...
-      </v-progress-circular>
+      <v-container v-if="Object.keys( offlineSrc).length< (endPage-startPage+1)">
+        <v-row
+          class="fill-height"
+          align-content="center"
+          justify="center"
+        >
+          <v-col
+            class="text-subtitle-1 text-center"
+            cols="12"
+          >
+            در حال بارگذاری
+          </v-col>
+          <v-col cols="6">
+            <v-progress-linear
+              color="deep-purple accent-4"
+              indeterminate
+              rounded
+              height="6"
+            ></v-progress-linear>
+          </v-col>
+        </v-row>
+      </v-container>
 
       <div
         v-for="i in range(startPage,endPage+1)"
@@ -59,7 +74,7 @@ export default {
 
     for (var start = this.startPage; start <= this.endPage; start++) {
       var title = start + "_english-10.pdf";
-      var url = "/pdfs/" + title;
+      var url = process.env.BASE_URL + "pdfs/" + title;
       this.downloadTOIndexedDb(title, url);
     }
   },
