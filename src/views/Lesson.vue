@@ -35,7 +35,7 @@
         :key="i"
       >
         <pdf
-          v-if=" offlineSrc[i+'_english-10.pdf']!='' "
+          v-if="Object.keys( offlineSrc).length==(endPage-startPage+1)"
           :src="offlineSrc[i+'_english-10.pdf']"
           :page="1"
         ></pdf>
