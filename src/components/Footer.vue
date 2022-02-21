@@ -8,7 +8,7 @@
       class="text-right"
       cols="12"
     >
-      <strong> {{message}} &nbsp; </strong>
+      <strong style="float:right; direction: rtl"> {{message}} &nbsp; </strong>
       <strong style="color:white"> {{translate}} </strong>
     </v-col>
 
