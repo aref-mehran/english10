@@ -1,4 +1,11 @@
 module.exports = {
+	pwa: {
+  workboxOptions: {
+    exclude: [
+      /^.*pdfs\/.*$/,
+    ]
+  }
+},
     chainWebpack: config => {
         config.module.rule('pdf')
           .test(/\.(pdf)(\?.*)?$/)
