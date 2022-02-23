@@ -22,7 +22,7 @@
           <v-col cols="6">
             <v-progress-linear
               color="deep-purple accent-4"
-              indeterminate
+              v-model="progressValue"
               rounded
               height="6"
             ></v-progress-linear>
@@ -65,6 +65,7 @@ export default {
       offlineSrc: {},
       offlineSrc_length: 0,
       componentKey: 0,
+      progressValue:5
     };
   },
   mounted() {
@@ -104,6 +105,8 @@ export default {
       var blob = await res.blob();
       await localforage.setItem(title, blob);
       this.setOfflineSrc(title, blob);
+
+      this.progressValue=(Object.keys( this.offlineSrc).length/(this.endPage-this.startPage+1))*100;
     },
     range(start, end) {
       start = Number(start);
@@ -120,6 +123,7 @@ export default {
       var selectedStr = cursor.toString();
 
       selectedStr = selectedStr.trim();
+      selectedStr=selectedStr.replace(/\s+/g, ' ');
       this.speak.read(selectedStr, this.$store.state.readingSpeed / 100);
 
       this.farsiSentence = this.translator.getTranslated(selectedStr);
