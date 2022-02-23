@@ -122,8 +122,7 @@ export default {
       cursor.modify("extend", "forward", "lineboundary");
       var selectedStr = cursor.toString();
 
-      selectedStr = selectedStr.trim();
-      selectedStr=selectedStr.replace(/\s+/g, ' ');
+
       this.speak.read(selectedStr, this.$store.state.readingSpeed / 100);
 
       this.farsiSentence = this.translator.getTranslated(selectedStr);
