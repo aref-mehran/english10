@@ -11,17 +11,7 @@
       <v-icon> mdi-home </v-icon>
     </v-btn>
     <v-spacer></v-spacer>
-    <v-switch
-      @click="switchSentenceClick()"
-      v-model="switchSentence"
-      hide-details
-    >
-      <template v-slot:label>
-        <p v-if="switchSentence"> جمله </p>
-        <p v-if="!switchSentence"> کلمه</p>
-      </template>
-
-    </v-switch>
+برای شنیدن تلفظ روی کلمات کلیک کنید
 
     <v-spacer></v-spacer>
     <v-select
