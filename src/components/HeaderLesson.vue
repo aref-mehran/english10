@@ -3,6 +3,7 @@
     app
     color="primary"
     dark
+    style="font-size: x-small"
   >
     <v-btn
       :to="`/`"
