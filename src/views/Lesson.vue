@@ -3,7 +3,7 @@
     <Header />
 
     <div :key="componentKey">
-      <v-container v-if="progressValue != 100">
+      <v-container v-if="progressValue != 100 || loading">
         <v-row class="fill-height" align-content="center" justify="center">
           <v-col class="text-subtitle-1 text-center" cols="12">
             در حال دانلود(لطفا اینترنت خود را روشن کنید)
@@ -56,6 +56,7 @@ export default {
       offlineSrc: {},
       componentKey: 0,
       progressValue: 5,
+      loading: true,
     };
   },
   mounted() {
@@ -77,6 +78,10 @@ export default {
       // Use traditional 'for loops' for IE 11
       for (const mutation of mutationsList) {
         if (mutation.type === "childList") {
+          if (document.getElementsByTagName("span").length > 10) {
+            self.loading = false;
+          }
+
           for (var el of mutation.addedNodes) {
             if (el.tagName == "SPAN") {
               el.addEventListener("click", function (e) {
