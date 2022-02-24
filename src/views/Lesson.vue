@@ -28,7 +28,10 @@
       </div>
     </div>
     <div>
-      <Footer :translate="this.farsiSentence" />
+      <Footer
+        :en_translate="this.englishSentence"
+        :fa_translate="this.farsiSentence"
+      />
     </div>
   </div>
 </template>
@@ -48,6 +51,8 @@ export default {
       endPage: 5,
       alignments: "center",
       farsiSentence: "",
+      englishSentence: "",
+
       offlineSrc: {},
       componentKey: 0,
       progressValue: 5,
@@ -145,6 +150,7 @@ export default {
       this.speak.read(sentence, this.$store.state.readingSpeed / 100);
 
       this.farsiSentence = this.translator.getTranslated(sentence);
+      this.englishSentence = sentence;
     },
     clickOnWord() {
       let cursor = window.getSelection();
@@ -155,6 +161,7 @@ export default {
       this.speak.read(selectedStr, this.$store.state.readingSpeed / 100);
 
       this.farsiSentence = this.translator.getTranslated(selectedStr);
+      this.englishSentence = selectedStr;
     },
     clicked() {
       if (this.$store.state.SentenceReadingMode) {
