@@ -1,0 +1,23 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+
+    "target": {
+      "namespace": "android_app",
+      "package_name": "ir.pizan.www.twa",
+      "sha256_cert_fingerprints": [
+        "08:36:8A:7A:15:15:9A:A0:9C:61:D3:93:19:C0:33:AF:86:5F:BA:38:0E:37:46:D2:1D:FB:F9:29:74:5B:B0:3C"
+      ]
+    }
+  },
+  {
+      "relation": [
+        "check_validation"
+      ],
+      "target": {
+        "namespace": "cafebazaar_twa",
+        "package_name": "ir.pizan.www.twa"
+      }
+    }
+  
+]
