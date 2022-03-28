@@ -35,6 +35,13 @@
         </v-list-group>
       </v-list>
     </v-card>
+    <div style="
+    direction: rtl;
+    font-size: smaller;
+    text-align-last: center;
+    margin-top: 10%;
+"> فایل کتاب درسی از سایت roshd.ir گرفته شده است </div>
+
   </div>
 </template>
 

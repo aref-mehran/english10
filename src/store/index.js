@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     SentenceReadingMode : true,
     readingSpeed : 100,
-    readingSpeedItems :[ 70 , 100 , 150 , 200 ],
+    readingSpeedItems :[ 10,20,30,40,50,60,70,80,90, 100 , 150 , 200 ],
   },
   mutations: {
       setReadingMode(state, mode){
