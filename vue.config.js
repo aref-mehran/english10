@@ -16,7 +16,9 @@ module.exports = {
             })
     
       },
- publicPath: '/',
+     publicPath: process.env.NODE_ENV === 'production'
+    ? '/english10/dist/'
+    : '/',
 	transpileDependencies: [
     'vuetify'
   ]
