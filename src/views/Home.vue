@@ -40,7 +40,7 @@
     font-size: smaller;
     text-align-last: center;
     margin-top: 10%;
-"> فایل کتاب درسی از سایت roshd.ir گرفته شده است </div>
+"> منبع سایت roshd.ir </div>
 
   </div>
 </template>
