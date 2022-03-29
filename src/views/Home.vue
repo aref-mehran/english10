@@ -40,7 +40,7 @@
     font-size: smaller;
     text-align-last: center;
     margin-top: 10%;
-"> منبع کتاب درسی roshd.ir </div>
+"> منبع کتاب درسی www.roshd.ir </div>
 
   </div>
 </template>
