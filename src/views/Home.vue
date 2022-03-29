@@ -40,7 +40,7 @@
     font-size: smaller;
     text-align-last: center;
     margin-top: 10%;
-"> منبع سایت roshd.ir </div>
+"> منبع کتاب سایت roshd.ir </div>
 
   </div>
 </template>
