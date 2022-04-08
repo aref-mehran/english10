@@ -5,26 +5,26 @@
 
       <v-list>
         <v-list-group
-          v-for="item in items"
-          :key="item.title"
-          v-model="item.active"
+          v-for="lesson in book"
+          :key="lesson.title"
+          v-model="lesson.active"
           no-action
         >
           <template v-slot:activator>
             <v-list-item-avatar>
-              <v-img :src="item.avatar"></v-img>
+              <v-img :src="lesson.avatar"></v-img>
             </v-list-item-avatar>
             <v-list-item-content>
-              <v-list-item-title v-text="item.title"></v-list-item-title>
-              <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+              <v-list-item-title v-text="lesson.title"></v-list-item-title>
+              <v-list-item-subtitle v-html="lesson.subtitle"></v-list-item-subtitle>
             </v-list-item-content>
           </template>
 
           <v-list-item
-            v-for="child in item.sectionItems"
+            v-for="child in lesson.sectionItems"
             :key="child.title"
             @click="lessonItemClick(child.title)"
-            :to="`/${item.title}/${child.startPageNum}/${child.endPageNum}`"
+            :to="`/${lesson.title}/${child.startPageNum}/${child.endPageNum}`"
           >
             <v-list-item-content>
               <!--<v-icon> mdi-domain </v-icon>-->
@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import lessonItems from "@/data/lessonItems.js";
+import books from "@/data/books.js";
 import Header from "@/components/HeaderHome.vue";
 
 export default {
@@ -62,7 +62,7 @@ export default {
   },
   data: () => ({
     selectedLesson: "",
-    items: lessonItems,
+    books: books,
   }),
 };
 </script>
