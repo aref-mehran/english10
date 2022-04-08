@@ -1,7 +1,14 @@
 export default [
   {
+<<<<<<< HEAD
     bookName:"انگلیسی دهم",
     lessons:[
+=======
+    bookTitle: "انگلیسی دهم",
+    bookName: "english10",
+    avatar: require("@/assets/image/lesson1.png"),
+    lessons: [
+>>>>>>> 8325cc70fce3f207225983015befa2a7c76bf0fc
       {
         avatar: require("@/assets/image/lesson1.png"),
         title: "Lesson one",
@@ -74,12 +81,23 @@ export default [
         ],
         subtitle: `<span class="text--primary">Irregular Verbs (121-125) </span> `,
       },
+<<<<<<< HEAD
     
     ],
   },
   {
     bookName:"انگلیسی یازدهم",
     lessons:[
+=======
+
+    ],
+  },
+  {
+    bookTitle: "انگلیسی دهم",
+    bookName: "english10",
+    avatar: require("@/assets/image/lesson1.png"),
+    lessons: [
+>>>>>>> 8325cc70fce3f207225983015befa2a7c76bf0fc
       {
         avatar: require("@/assets/image/lesson1.png"),
         title: "Lesson one",
@@ -152,7 +170,11 @@ export default [
         ],
         subtitle: `<span class="text--primary">Irregular Verbs (121-125) </span> `,
       },
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 8325cc70fce3f207225983015befa2a7c76bf0fc
     ],
   }
 
