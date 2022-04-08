@@ -2,6 +2,7 @@ export default [
   {
     bookTitle: "انگلیسی دهم",
     bookName: "english10",
+    pageOffset: 2,
     avatar: require("@/assets/image/lesson1.png"),
     lessons: [
       {
@@ -80,8 +81,8 @@ export default [
     ],
   },
   {
-    bookTitle: "انگلیسی دهم",
-    bookName: "english10",
+    bookTitle: "انگلیسی 11",
+    bookName: "english11",
     avatar: require("@/assets/image/lesson1.png"),
     lessons: [
       {

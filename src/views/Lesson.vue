@@ -43,6 +43,9 @@ import Speak from "@/services/Speak.js";
 import Translate from "@/services/Translate.js";
 import pdf from "pdfvuer";
 import localforage from "localforage";
+
+import books from "@/data/books.js";
+
 export default {
   data() {
     return {
@@ -62,8 +65,13 @@ export default {
   },
   mounted() {
     this.bookName = this.$route.params.bookName;
-    this.startPage = +this.$route.params.startPage;
-    this.endPage = +this.$route.params.endPage;
+    let pageOffset = books.filter((book) => book.bookName == this.bookName)[0]
+      .pageOffset;
+    if (!pageOffset) {
+      pageOffset = 0;
+    }
+    this.startPage = +this.$route.params.startPage + pageOffset;
+    this.endPage = +this.$route.params.endPage + pageOffset;
     this.init_pdf();
 
     // Select the node that will be observed for mutations
