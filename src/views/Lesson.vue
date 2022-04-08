@@ -132,7 +132,6 @@ export default {
         return;
       }
       const res = await fetch(url);
-      alert(res);
       console.log(res);
 
       var blob = await res.blob();
