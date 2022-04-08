@@ -44,7 +44,7 @@
                   v-for="child in lesson.sectionItems"
                   :key="child.title"
                   @click="lessonItemClick(child.title)"
-                  :to="`/${lesson.title}/${child.startPageNum}/${child.endPageNum}`"
+                  :to="`/lesson/${book.bookName}/${child.startPageNum}/${child.endPageNum}`"
                 >
                   <v-list-item-content>
                     <!--<v-icon> mdi-domain </v-icon>-->
