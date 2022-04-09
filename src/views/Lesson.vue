@@ -22,7 +22,7 @@
       <div v-for="i in range(startPage, endPage + 1)" :key="i">
         <pdf
           v-if="progressValue == 100"
-          :src="offlineSrc[i + '_english-10.pdf']"
+          :src="offlineSrc[bookName + '_' + i + '.pdf']"
           :page="1"
         ></pdf>
       </div>
@@ -43,10 +43,14 @@ import Speak from "@/services/Speak.js";
 import Translate from "@/services/Translate.js";
 import pdf from "pdfvuer";
 import localforage from "localforage";
+
+import books from "@/data/books.js";
+
 export default {
   data() {
     return {
       lesson: "",
+      bookName: "",
       startPage: 1,
       endPage: 5,
       alignments: "center",
@@ -60,9 +64,14 @@ export default {
     };
   },
   mounted() {
-    this.lesson = this.$route.params.lessonTitle;
-    this.startPage = +this.$route.params.startPage;
-    this.endPage = +this.$route.params.endPage;
+    this.bookName = this.$route.params.bookName;
+    let pageOffset = books.filter((book) => book.bookName == this.bookName)[0]
+      .pageOffset;
+    if (!pageOffset) {
+      pageOffset = 0;
+    }
+    this.startPage = +this.$route.params.startPage + pageOffset;
+    this.endPage = +this.$route.params.endPage + pageOffset;
     this.init_pdf();
 
     // Select the node that will be observed for mutations
@@ -107,9 +116,11 @@ export default {
   methods: {
     async init_pdf() {
       for (var start = this.startPage; start <= this.endPage; start++) {
-        var title = start + "_english-10.pdf";
-        var url = process.env.BASE_URL + "pdfs/" + title;
-        await this.downloadTOIndexedDb(title, url);
+        var fileName = start + ".pdf";
+        var url =
+          process.env.BASE_URL + "pdfs/" + this.bookName + "/" + fileName;
+        var indexdbFileName = this.bookName + "_" + fileName;
+        await this.downloadTOIndexedDb(indexdbFileName, url);
       }
 
       this.progressValue = 100;
@@ -129,6 +140,7 @@ export default {
         return;
       }
       const res = await fetch(url);
+      console.log(res);
 
       var blob = await res.blob();
       await localforage.setItem(title, blob);
