@@ -117,8 +117,8 @@ export default {
     async init_pdf() {
       for (var start = this.startPage; start <= this.endPage; start++) {
         var fileName = start + ".pdf";
-        var url="https://raw.githubusercontent.com/aref-mehran/english10/master/src/assets/pdfs/"
-        +this.bookName+"/"+fileName;
+        var url =
+          process.env.BASE_URL + "pdfs/" + this.bookName + "/" + fileName;
         var indexdbFileName = this.bookName + "_" + fileName;
         await this.downloadTOIndexedDb(indexdbFileName, url);
       }
