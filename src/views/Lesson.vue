@@ -64,7 +64,6 @@ export default {
     };
   },
   mounted() {
-    this.bookName = this.$route.params.bookName;
     let pageOffset = books.filter((book) => book.bookName == this.bookName)[0]
       .pageOffset;
     if (!pageOffset) {
@@ -108,6 +107,7 @@ export default {
     observer.observe(targetNode, config);
   },
   created() {
+    this.bookName = this.$route.params.bookName;
     this.speak = new Speak();
     this.translator = new Translate(this.bookName);
   },
