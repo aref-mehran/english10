@@ -109,7 +109,7 @@ export default {
   },
   created() {
     this.speak = new Speak();
-    this.translator = new Translate();
+    this.translator = new Translate(this.bookName);
   },
   updated() {},
 
