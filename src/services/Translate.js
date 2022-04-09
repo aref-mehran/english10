@@ -1,4 +1,25 @@
 var trnsaltedfile = {};
+
+import english7_en from "../assets/english7_en.js";
+trnsaltedfile["english7_en"] = english7_en; 
+
+import english7_fa from "../assets/english7_fa.js";
+trnsaltedfile["english7_fa"] = english7_fa;
+
+import english8_en from "../assets/english8_en.js";
+trnsaltedfile["english8_en"] = english8_en;
+
+import english8_fa from "../assets/english8_fa.js";
+trnsaltedfile["english8_fa"] = english8_fa;
+
+import english9_en from "../assets/english9_en.js";
+trnsaltedfile["english9_en"] = english9_en;
+
+import english9_fa from "../assets/english9_fa.js";
+trnsaltedfile["english9_fa"] = english9_fa;
+
+
+
 import english10_en from "../assets/english10_en.js";
 trnsaltedfile["english10_en"] = english10_en;
 
