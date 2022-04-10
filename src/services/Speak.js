@@ -8,11 +8,11 @@ class Speak {
       console.log("speech synthesis supported");
     }
   }
-  read(text, speed) {
+  async read(text, speed) {
     const firstOfflineVoice = speechSynthesis.getVoices().filter((el) => {
       return el.localService == true;
     })[0]?.name;
-    this.speech.init({
+    await this.speech.init({
       volume: 1,
       lang: "en-GB",
       rate: speed,
