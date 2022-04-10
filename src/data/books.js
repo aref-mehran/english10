@@ -686,7 +686,7 @@ export default [
     ],
   },
   {
-    bookTitle: "انگلیسی 11",
+    bookTitle: "انگلیسی یازدهم",
     bookName: "english11",
     avatar: require("@/assets/image/lesson1.png"),
     lessons: [
@@ -760,7 +760,7 @@ export default [
     ],
   },
   {
-    bookTitle: "انگلیسی 12",
+    bookTitle: "انگلیسی دوازدهم",
     bookName: "english12",
     avatar: require("@/assets/image/lesson1.png"),
     lessons: [

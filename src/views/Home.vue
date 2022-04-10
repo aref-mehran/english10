@@ -14,7 +14,7 @@
               <v-img :src="book.avatar"></v-img>
             </v-list-item-avatar>
             <v-list-item-content>
-              <v-list-item-title v-text="book.bookName"></v-list-item-title>
+              <v-list-item-title v-text="book.bookTitle"></v-list-item-title>
             </v-list-item-content>
           </template>
 
