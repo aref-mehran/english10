@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/english10/dist/precache-manifest.767302dce56f33b78bc76b03411a2e15.js"
+  "/english10/dist/precache-manifest.b2ef6748e2732fad29fb2688ad1a8b68.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "english10"});
