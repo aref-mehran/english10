@@ -96,7 +96,6 @@ export default {
   methods: {
     async downloadAllPages(){
       if(localStorage[''+this.book.bookName]=='done'){
-        this.downloadAllProgress=100;
         return;  
       }
 
@@ -120,7 +119,7 @@ export default {
         this.downloadAllProgress=this.downloadAllProgress+(100/pages.size);
       }
       this.downloadAllProgress=100;
-      localStorage[''+this.book.bookName]==100;
+      localStorage[''+this.book.bookName]='done';
     },
     lessonItemClick(itemTitle) {
       this.selectedLesson = itemTitle;
@@ -135,11 +134,17 @@ export default {
 },
 watch: {
 		book: function(){
-        this.downloadAllPages();		 
+          this.downloadAllPages();
+ 
 		}
       },
 created(){
   this.$store.commit('setBookName',this.$route.params.bookName);
+
+  if(localStorage[''+this.book.bookName]=='done'){
+      this.downloadAllProgress=100;
+    }
+
   
 },
   data: () => ({

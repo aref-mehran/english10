@@ -5,7 +5,7 @@
     dark
   >
 
-    <v-row no-gutters>
+    <v-row v-if="$route.name!='Home'" no-gutters>
       <v-col
         cols="6"
         sm="4"
