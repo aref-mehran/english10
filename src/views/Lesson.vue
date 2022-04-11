@@ -40,6 +40,7 @@
 import Header from "@/components/HeaderLesson.vue";
 import Footer from "@/components/Footer.vue";
 import Speak from "@/services/Speak.js";
+import Utils from "@/services/Utils.js";
 import Translate from "@/services/Translate.js";
 import pdf from "pdfvuer";
 import localforage from "localforage";
@@ -120,7 +121,10 @@ export default {
         var url =
           process.env.BASE_URL + "pdfs/" + this.bookName + "/" + fileName;
         var indexdbFileName = this.bookName + "_" + fileName;
-        await this.downloadTOIndexedDb(indexdbFileName, url);
+        var blob=await Utils.downloadTOIndexedDb(indexdbFileName, url);
+
+        this.setOfflineSrc(indexdbFileName,blob);
+        this.progressValue =(Object.keys(this.offlineSrc).length /(this.endPage - this.startPage + 1)) *100;
       }
 
       this.progressValue = 100;
@@ -132,25 +136,7 @@ export default {
       this.offlineSrc[title] = fileUrl;
       this.componentKey++;
     },
-    async downloadTOIndexedDb(title, url) {
-      var currentBlob = await localforage.getItem(title);
-      if (currentBlob) {
-        this.setOfflineSrc(title, currentBlob);
-
-        return;
-      }
-      const res = await fetch(url);
-      console.log(res);
-
-      var blob = await res.blob();
-      await localforage.setItem(title, blob);
-      this.setOfflineSrc(title, blob);
-
-      this.progressValue =
-        (Object.keys(this.offlineSrc).length /
-          (this.endPage - this.startPage + 1)) *
-        100;
-    },
+    
     range(start, end) {
       start = Number(start);
       end = Number(end);
