@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Lesson from "../views/Lesson.vue";
+import Lessons from "../views/Lessons.vue";
 
 Vue.use(VueRouter);
 
@@ -20,6 +21,11 @@ const routes = [
     path: "/lesson/:bookName/:startPage/:endPage",
     name: "Lesson",
     component: Lesson,
+  },
+  {
+    path: "/lessons/:bookName/",
+    name: "Lessons",
+    component: Lessons,
   },
 ];
 
