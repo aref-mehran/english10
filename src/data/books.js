@@ -447,7 +447,7 @@ export default [
         subtitle: `<span class="text--primary">Personality</span> `,
         sectionItems: [
           { title: "Conversation", startPageNum: 16, endPageNum: 19 },
-          { title: "Language Melody", startPageNum: 20, endPageNum: 19 },
+          { title: "Language Melody", startPageNum: 20, endPageNum: 20 },
 
           { title: "Grammar", startPageNum: 21, endPageNum: 29 },
           {

@@ -106,17 +106,18 @@ export default {
       for (let lesson of this.book.lessons){
         for(let section of lesson.sectionItems){
           let arr=Utils.range(section.startPageNum,section.endPageNum);
+          console.log(section.startPageNum,section.endPageNum,arr);
           for(let page of arr){
             pages.add(page)
           };
         }
       }
+      console.log(pages);
       for (let pageNum of pages){
         var url =Utils.getPageUrl(pageNum, this.book.bookName);
         var indexdbFileName = Utils.getIndexDbFileName(pageNum, this.book.bookName);
         await Utils.downloadTOIndexedDb(indexdbFileName, url);
         this.downloadAllProgress=this.downloadAllProgress+(100/pages.size);
-        console.log(this.downloadAllProgress);
       }
       this.downloadAllProgress=100;
       localStorage[''+this.book.bookName]==100;
@@ -139,12 +140,7 @@ watch: {
       },
 created(){
   this.$store.commit('setBookName',this.$route.params.bookName);
-  this.downloadAllPages();
-
-
-
   
-
 },
   data: () => ({
     selectedLesson: "",

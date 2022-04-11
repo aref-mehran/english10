@@ -6,16 +6,17 @@ class Utils {
       return currentBlob;
     }
     const res = await fetch(url);
-    console.log(res);
 
     var blob = await res.blob();
     await localforage.setItem(title, blob);
     return blob;
   }
   static range(start, end) {
-    return Array.apply(0, Array(end - 1)).map(
-      (element, index) => index + start
-    );
+    let arr = [];
+    for (let i = start; i <= end; i++){
+      arr.push(i);
+    }
+    return arr;
   }
   static getIndexDbFileName(pageNum, bookName) {
     var fileName = pageNum + ".pdf";
