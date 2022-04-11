@@ -6,7 +6,7 @@
       <v-container v-if="progressValue != 100 || loading">
         <v-row class="fill-height" align-content="center" justify="center">
           <v-col class="text-subtitle-1 text-center" cols="12">
-            در حال دانلود(لطفا اینترنت خود را روشن کنید)
+            لطفا منتظر بمانید
           </v-col>
           <v-col cols="6">
             <v-progress-linear
@@ -115,14 +115,13 @@ export default {
   updated() {},
 
   methods: {
-    async init_pdf() {
-      for (var start = this.startPage; start <= this.endPage; start++) {
-        var fileName = start + ".pdf";
-        var url =
-          process.env.BASE_URL + "pdfs/" + this.bookName + "/" + fileName;
-        var indexdbFileName = this.bookName + "_" + fileName;
-        var blob=await Utils.downloadTOIndexedDb(indexdbFileName, url);
 
+
+    async init_pdf() {
+      for (var pageNum = this.startPage; pageNum <= this.endPage; pageNum++) {
+        var url =Utils.getPageUrl(pageNum, this.bookName);
+        var indexdbFileName = Utils.getIndexDbFileName(pageNum, this.bookName);
+        var blob=await Utils.downloadTOIndexedDb(indexdbFileName, url);
         this.setOfflineSrc(indexdbFileName,blob);
         this.progressValue =(Object.keys(this.offlineSrc).length /(this.endPage - this.startPage + 1)) *100;
       }

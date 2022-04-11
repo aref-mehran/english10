@@ -1,7 +1,26 @@
 <template>
   <div>
     <Header />
-    <v-card class="mx-auto">
+
+      <v-container v-if="Math.floor(downloadAllProgress) != 100 || loading">
+        <v-row class="fill-height" align-content="center" justify="center">
+          <v-col class="text-subtitle-1 text-center" cols="12">
+            در حال دانلود(لطفا اینترنت خود را روشن کنید)
+          </v-col>
+          <v-col cols="6">
+            <v-progress-linear
+              color="deep-purple accent-4"
+              v-model="downloadAllProgress"
+              rounded
+              height="6"
+            ></v-progress-linear>
+          </v-col>
+        </v-row>
+      </v-container>
+
+
+
+    <v-card v-if="Math.floor(downloadAllProgress) == 100" class="mx-auto">
       <v-list>
 
           <v-list-item>
@@ -67,7 +86,7 @@
 <script>
 import books from "@/data/books.js";
 import Header from "@/components/HeaderHome.vue";
-
+import Utils from "@/services/Utils.js"
 export default {
   name: "Home",
   components: {
@@ -75,6 +94,24 @@ export default {
   },
 
   methods: {
+    async downloadAllPages(){
+      let pages=new Set();
+      for (let lesson of this.book.lessons){
+        for(let section of lesson.sectionItems){
+          let arr=Utils.range(section.startPageNum,section.endPageNum);
+          for(let page of arr){
+            pages.add(page)
+          };
+        }
+      }
+      for (let pageNum of pages){
+        var url =Utils.getPageUrl(pageNum, this.book.bookName);
+        var indexdbFileName = Utils.getIndexDbFileName(pageNum, this.book.bookName);
+        await Utils.downloadTOIndexedDb(indexdbFileName, url);
+        this.downloadAllProgress=this.downloadAllProgress+(100/pages.size);
+        console.log(this.downloadAllProgress);
+      }
+    },
     lessonItemClick(itemTitle) {
       this.selectedLesson = itemTitle;
       console.log("selected lesson: ", itemTitle);
@@ -87,10 +124,17 @@ export default {
 },
 created(){
   this.$store.commit('setBookName',this.$route.params.bookName);
+  this.downloadAllPages();
+
+
+
+  
+
 },
   data: () => ({
     selectedLesson: "",
     books: books,
+    downloadAllProgress:0,
   }),
 };
 </script>
