@@ -10,7 +10,7 @@
         cols="6"
         sm="4"
       >
-          <v-toolbar-title v-if="bookName" >{{bookName}} </v-toolbar-title>
+          <v-toolbar-title v-if="$store.state.bookName" >{{$store.state.bookName}} </v-toolbar-title>
 
             </v-col>
 
@@ -20,7 +20,7 @@
       >
               <v-select
       :items="items"
-      :value="bookName"
+      :value="$store.state.bookName"
       @input="changeBook"
       hide-details
       :label="'انتخاب کتاب'"
@@ -41,7 +41,6 @@ import books from "@/data/books.js";
 export default {
     data(){
       return{
-        bookName: this.$store.state.bookName,
         items:books.map(book=>({value:book.bookName,text:book.bookTitle}) ),
       };
     },
