@@ -5,7 +5,9 @@
         {{ message }} &nbsp;
       </strong>
       <br />
+      <div style="text-align: left !important;">
       <strong style="color: white"> {{ en_translate }} </strong>
+      </div>
       <br />
       <strong style="color: white"> {{ fa_translate }} </strong>
     </v-col>
