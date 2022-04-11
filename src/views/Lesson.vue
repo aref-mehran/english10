@@ -6,7 +6,7 @@
       <v-container v-if="progressValue != 100 || loading">
         <v-row class="fill-height" align-content="center" justify="center">
           <v-col class="text-subtitle-1 text-center" cols="12">
-            لطفا منتظر بمانید
+            {{ progressValue ==100 ? 'لطفا منتظر بمانید' : 'در حال دانلود. لطفا اینترنت فعال باشد'}}
           </v-col>
           <v-col cols="6">
             <v-progress-linear

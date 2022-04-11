@@ -98,6 +98,9 @@ export default {
       if(localStorage[''+this.book.bookName]=='done'){
         return;  
       }
+      if(this.downloadAllProgress!=0 && this.downloadAllProgress!=100 ){
+        return;
+      }
 
       this.downloadAllProgress=0;
 
@@ -134,7 +137,7 @@ export default {
 },
 watch: {
 		book: function(){
-          this.downloadAllPages();
+          //this.downloadAllPages();
  
 		}
       },
@@ -150,7 +153,7 @@ created(){
   data: () => ({
     selectedLesson: "",
     books: books,
-    downloadAllProgress:0,
+    downloadAllProgress:100,
   }),
 };
 </script>
