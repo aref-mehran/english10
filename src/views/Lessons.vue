@@ -95,6 +95,9 @@ export default {
 
   methods: {
     async downloadAllPages(){
+
+      this.downloadAllProgress=0;
+
       let pages=new Set();
       for (let lesson of this.book.lessons){
         for(let section of lesson.sectionItems){
@@ -111,6 +114,7 @@ export default {
         this.downloadAllProgress=this.downloadAllProgress+(100/pages.size);
         console.log(this.downloadAllProgress);
       }
+      this.downloadAllProgress=100;
     },
     lessonItemClick(itemTitle) {
       this.selectedLesson = itemTitle;
