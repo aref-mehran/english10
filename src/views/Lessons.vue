@@ -95,6 +95,10 @@ export default {
 
   methods: {
     async downloadAllPages(){
+      if(localStorage[''+this.book.bookName]=='done'){
+        this.downloadAllProgress=100;
+        return;  
+      }
 
       this.downloadAllProgress=0;
 
@@ -115,6 +119,7 @@ export default {
         console.log(this.downloadAllProgress);
       }
       this.downloadAllProgress=100;
+      localStorage[''+this.book.bookName]==100;
     },
     lessonItemClick(itemTitle) {
       this.selectedLesson = itemTitle;
@@ -124,8 +129,14 @@ export default {
   computed: {
     book() { //Remember, computed props are functions in the end
         return books.filter((book) => book.bookName == this.$store.state.bookName)[0];
-    }
+    },
+    	
 },
+watch: {
+		book: function(){
+        this.downloadAllPages();		 
+		}
+      },
 created(){
   this.$store.commit('setBookName',this.$route.params.bookName);
   this.downloadAllPages();
