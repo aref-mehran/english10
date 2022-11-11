@@ -2,25 +2,24 @@
   <div>
     <Header />
     <v-card class="mx-auto">
-      <v-list >
+      <v-list>
         <v-list-item
           v-for="book in books"
           :key="book.bookName"
           v-model="book.active"
           no-action
-           :to="`/lessons/${book.bookName}`"
-
+          :to="`/lessons/${book.bookName}`"
         >
-                <v-list-item-avatar>
-              <v-img :src="book.avatar"></v-img>
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title v-text="book.bookTitle"></v-list-item-title>
-            </v-list-item-content>
-
+          <v-list-item-avatar>
+            <v-img :src="book.avatar"></v-img>
+          </v-list-item-avatar>
+          <v-list-item-content>
+            <v-list-item-title v-text="book.bookTitle"></v-list-item-title>
+          </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-card>
+    <div id="pos-article-text-76542"></div>
     <div
       style="
         direction: rtl;
@@ -43,15 +42,12 @@ export default {
   components: {
     Header,
   },
-  methods: {
-
-  },
-  created(){
-    if (this.$store.state.bookName){
-      this.$router.push(`/lessons/`+this.$store.state.bookName);
+  methods: {},
+  created() {
+    if (this.$store.state.bookName) {
+      this.$router.push(`/lessons/` + this.$store.state.bookName);
     }
-  }
-  ,
+  },
   data: () => ({
     selectedLesson: "",
     books: books,
