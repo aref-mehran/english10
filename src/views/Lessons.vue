@@ -71,6 +71,7 @@
       </v-list>
     </v-card>
    <div id="pos-article-text-76542"></div>
+   <div id="pos-article-display-76635"></div>
     <div
       style="
         direction: rtl;
