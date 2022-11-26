@@ -19,7 +19,7 @@
     </v-container>
 
     <v-card
-      v-if="Math.floor(downloadAllProgress) == 100 && !showAds"
+      v-if="Math.floor(downloadAllProgress) == 100 && !showOnlyAds"
       class="mx-auto"
     >
       <v-list>
@@ -69,10 +69,11 @@
       </v-list>
     </v-card>
 
+    <div v-if="showOnlyAds" class="text-subtitle-1 text-center">
+      <strong>برای ادامه روی یک لینک کلیک کنید</strong>
+    </div>
+
     <div v-if="showAds">
-      <div class="text-subtitle-1 text-center">
-        <strong>برای ادامه روی یک لینک کلیک کنید</strong>
-      </div>
       <div id="pos-article-text-76542" @click="adsClicked"></div>
       <div id="pos-article-display-76635"></div>
     </div>
@@ -101,7 +102,7 @@ export default {
 
   methods: {
     adsClicked() {
-      this.showAds = false;
+      this.showOnlyAds = false;
       localStorage.adsClikedEpoch = Number(new Date());
     },
     async downloadAllPages() {
@@ -155,25 +156,34 @@ export default {
       //this.downloadAllPages();
     },
   },
-  created() {
+  mounted() {
     localStorage.visitedCount = localStorage.visitedCount
       ? Number(localStorage.visitedCount) + 1
       : 1;
 
-    let lastClickDays =
-      (new Date() - new Date(Number(localStorage.adsClikedEpoch))) /
-      (1000 * 24 * 3600);
-
-    let oneDayElapsed = lastClickDays ? lastClickDays > 1 : true;
-
-    let isSelectedUser =
-      Number(localStorage.visitedCount) > this.minVisitedToAds;
-    console.log(isSelectedUser, oneDayElapsed, localStorage.visitedCount);
-
-    if (isSelectedUser && oneDayElapsed) {
+    if (localStorage.visitedCount > this.minVisitedToAds) {
       this.showAds = true;
     }
+    var _this = this;
+    document.addEventListener("DOMContentLoaded", function (event) {
+      let lastClickDays =
+        (new Date() - new Date(Number(localStorage.adsClikedEpoch))) /
+        (1000 * 24 * 3600);
 
+      let oneDayElapsed = lastClickDays ? lastClickDays > 1 : true;
+
+      let isSelectedUser =
+        Number(localStorage.visitedCount) > _this.minVisitedToOnlyAds;
+
+      if (isSelectedUser && oneDayElapsed && _this.showAds) {
+        let el = document.getElementById("pos-article-display-76635");
+        if (Number(el.clientHeight) > 0) {
+          _this.showOnlyAds = true;
+        }
+      }
+    });
+  },
+  created() {
     this.$store.commit("setBookName", this.$route.params.bookName);
 
     if (localStorage["" + this.book.bookName] == "done") {
@@ -185,7 +195,9 @@ export default {
     books: books,
     downloadAllProgress: 100,
     showAds: false,
-    minVisitedToAds: 200000,
+    showOnlyAds: false,
+    minVisitedToAds: 20,
+    minVisitedToOnlyAds: 50,
   }),
 };
 </script>
