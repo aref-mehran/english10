@@ -185,7 +185,7 @@ export default {
     books: books,
     downloadAllProgress: 100,
     showAds: false,
-    minVisitedToAds: 200,
+    minVisitedToAds: 200000,
   }),
 };
 </script>
