@@ -4,7 +4,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/english10/dist/assetlinks.json"
   },
   {
-    "revision": "c18d509fd6b802abbf06",
+    "revision": "70ef59954ac63eccedf0",
     "url": "/english10/dist/css/app.806d2acb.css"
   },
   {
@@ -104,12 +104,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/english10/dist/img/lesson4.65f055be.png"
   },
   {
-    "revision": "e6ef3a920155dc365360c88334a9dbe1",
+    "revision": "5ca8620f360862fc9954d98140b20bd0",
     "url": "/english10/dist/index.html"
   },
   {
-    "revision": "c18d509fd6b802abbf06",
-    "url": "/english10/dist/js/app.8a880784.js"
+    "revision": "70ef59954ac63eccedf0",
+    "url": "/english10/dist/js/app.0e41cdc4.js"
   },
   {
     "revision": "bb77cb93ad5ffa1658b1",
