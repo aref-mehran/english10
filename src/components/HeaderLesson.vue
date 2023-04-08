@@ -1,30 +1,37 @@
 <template>
-  <v-app-bar
-    app
-    color="primary"
-    dark
-    style="font-size: x-small"
-  >
-    <v-btn
-      :to="`/`"
-      text
-    >
-      <v-icon> mdi-home </v-icon>
-    </v-btn>
-    <v-spacer></v-spacer>
-برای شنیدن تلفظ روی کلمات کلیک کنید
+  <div>
+    <v-app-bar app color="primary" dark style="font-size: x-small">
+      <v-btn :to="`/`" text>
+        <v-icon> mdi-home </v-icon>
+      </v-btn>
+      <v-spacer></v-spacer>
+      برای شنیدن تلفظ روی کلمات کلیک کنید
 
-    <v-spacer></v-spacer>
-    <v-select
-      :items="$store.state.readingSpeedItems"
-      :value="$store.state.readingSpeed"
-      @input="changeSpeed"
-      hide-details
-      :label="speedSelectLable"
-      style='max-width:25%'
-    ></v-select>
+      <v-spacer></v-spacer>
+      <v-select
+        :items="$store.state.readingSpeedItems"
+        :value="$store.state.readingSpeed"
+        @input="changeSpeed"
+        hide-details
+        :label="speedSelectLable"
+        style="max-width: 25%"
+      ></v-select>
+    </v-app-bar>
 
-  </v-app-bar>
+    <div>
+      <a
+        href="https://survey.porsline.ir/s/v2zlYdU7"
+        style="
+          text-decoration: auto;
+          padding: 10%;
+          font-size: larger;
+          color: green;
+        "
+      >
+        (کلیک کنید)خرید ارزان سی پی کالاف
+      </a>
+    </div>
+  </div>
 </template>
 
 <script>
