@@ -27,12 +27,19 @@
         margin-top: 10%;
       "
     >
-      <div>ثبت نام در دوره های</div>
+      <!-- <div>ثبت نام در دوره های</div>
       <a
         href="https://survey.porsline.ir/s/rF8K12Fe"
         style="text-decoration: auto; padding: 10%; font-size: larger"
       >
         بازی سازی ,طراحی سایت ,تدریس کتب درسی (زبان, ریاضی, فیزیک و ..)
+      </a> -->
+
+      <div>خرید ارزان سی پی کالاف</div>
+      <a
+        href="https://survey.porsline.ir/s/v2zlYdU7"
+        style="text-decoration: auto; padding: 10%; font-size: larger"
+      >
       </a>
 
       <div style="font-size: smaller">منبع کتاب درسی www.roshd.ir</div>
