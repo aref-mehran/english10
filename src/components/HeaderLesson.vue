@@ -18,7 +18,7 @@
       ></v-select>
     </v-app-bar>
 
-    <div>
+    <!-- <div>
       <a
         href="https://survey.porsline.ir/s/v2zlYdU7"
         style="
@@ -30,8 +30,11 @@
       >
         (کلیک کنید)خرید ارزان سی پی کالاف
       </a>
-    </div>
-  </div>
+    </div> -->
+    <div id="pos-article-text-76542"></div>
+
+
+</div>
 </template>
 
 <script>

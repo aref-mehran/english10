@@ -35,12 +35,15 @@
         بازی سازی ,طراحی سایت ,تدریس کتب درسی (زبان, ریاضی, فیزیک و ..)
       </a> -->
 
-      <a
+      <!-- <a
         href="https://survey.porsline.ir/s/v2zlYdU7"
         style="text-decoration: auto; padding: 10%; font-size: larger"
       >
         (کلیک کنید)خرید ارزان سی پی کالاف
-      </a>
+      </a> -->
+
+      <div id="pos-article-text-76542"></div>
+
 
       <div style="font-size: smaller">منبع کتاب درسی www.roshd.ir</div>
     </div>

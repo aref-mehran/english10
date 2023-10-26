@@ -84,9 +84,8 @@
       </div> -->
 
       <div id="pos-article-text-76542"></div>
-    <div>salam</div>
 
-    
+
       <div style="font-size: smaller">منبع کتاب درسی www.roshd.ir</div>
     </div>
   </div>
