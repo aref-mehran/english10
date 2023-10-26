@@ -65,7 +65,6 @@
         </v-list-item>
       </v-list>
     </v-card>
-    <div id="pos-article-text-76542"></div>
     <div id="pos-article-display-76635"></div>
     <div
       style="
@@ -75,15 +74,19 @@
         margin-top: 10%;
       "
     >
-      <div>
+      <!-- <div>
         <a
           href="https://survey.porsline.ir/s/v2zlYdU7"
           style="text-decoration: auto; padding: 10%; font-size: larger"
         >
           (کلیک کنید)خرید ارزان سی پی کالاف
         </a>
-      </div>
+      </div> -->
 
+      <div id="pos-article-text-76542"></div>
+    <div>salam</div>
+
+    
       <div style="font-size: smaller">منبع کتاب درسی www.roshd.ir</div>
     </div>
   </div>
