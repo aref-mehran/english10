@@ -31,7 +31,6 @@
         (کلیک کنید)خرید ارزان سی پی کالاف
       </a>
     </div> -->
-    <script type="text/javascript" src="http://shopingo.mihanstore.net/partner/show_ads.php?ads_type=banner&ref=93936&row=1&col=1&class=1&prod=1&cats=138&prodType=1" ></script>
     <!-- <div id="pos-article-text-76542"></div> -->
 
 
