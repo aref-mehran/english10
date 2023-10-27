@@ -104,7 +104,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/english10/dist/img/lesson4.65f055be.png"
   },
   {
-    "revision": "c45d36420e6a44e99d362c4341ea7b13",
+    "revision": "4981695ce1e4e4d6f85249885693b5db",
     "url": "/english10/dist/index.html"
   },
   {
