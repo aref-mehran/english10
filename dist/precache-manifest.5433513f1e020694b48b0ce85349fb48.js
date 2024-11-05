@@ -126,5 +126,9 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
     "url": "/english10/dist/robots.txt"
+  },
+  {
+    "revision": "9d91d38da2eda76d7d77220bc598ed62",
+    "url": "/english10/dist/srt.html"
   }
 ]);
