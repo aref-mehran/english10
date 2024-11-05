@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Learning Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .subtitle {
+            font-size: 24px;
+            min-height: 100px;
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .file-inputs {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+        }
+        .file-inputs label {
+            display: block;
+            margin: 10px 0;
+        }
+        #playback-controls {
+            display: none;
+        }
+        .instructions {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #e8f5e9;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+        }
+        .instructions h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+        .instructions p {
+            margin: 5px 0;
+            color: #333;
+        }
+        .status {
+            text-align: center;
+            color: #666;
+            margin: 10px 0;
+        }
+        input[type="file"] {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        #currentTime {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #666;
+        }
+        select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #4CAF50;
+            background-color: white;
+            color: #333;
+            cursor: pointer;
+        }
+        select:hover {
+            border-color: #45a049;
+        }
+        .entry-navigation {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        .entry-navigation input[type="number"] {
+            width: 80px;
+            padding: 8px;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="file-inputs">
+            <label>
+                Select MP3 File:
+                <input type="file" id="audioFile" >
+            </label>
+            <label>
+                Select SRT File:
+                <input type="file" id="srtFile" >
+            </label>
+        </div>
+
+        <div class="instructions">
+            <h3>QCY AirPod Controls:</h3>
+            <p>• Single tap: Play/Pause</p>
+            <p>• Double tap: Next subtitle</p>
+            <p>• Triple tap: Previous subtitle</p>
+        </div>
+
+        <audio id="audio"></audio>
+        <div class="subtitle" id="subtitle"></div>
+        <div id="currentTime"></div>
+        <div id="playback-controls" class="controls">
+            <button onclick="prevSubtitle()">Previous</button>
+            <button id="pauseButton" onclick="togglePause()">Pause</button>
+            <button onclick="nextSubtitle()">Next</button>
+            <select id="playbackSpeed" onchange="changePlaybackSpeed()">
+                <option value="0.5">0.5x</option>
+                <option value="0.75">0.75x</option>
+                <option value="1" selected>1x</option>
+                <option value="1.25">1.25x</option>
+                <option value="1.5">1.5x</option>
+                <option value="2">2x</option>
+            </select>
+            <div class="entry-navigation">
+                <input type="number" id="entryNumber" min="1" placeholder="Entry #">
+                <button onclick="goToEntry()">Go</button>
+            </div>
+        </div>
+        <div class="status">
+            Media Controls: <span id="mediaStatus">Not Connected</span>
+        </div>
+    </div>
+
+    <script>
+        let srtEntries = [];
+        let currentIndex = 0;
+        let currentInterval;
+        let isPaused = false;
+        let lastTapTime = 0;
+        let tapCount = 0;
+        const TAP_TIMEOUT = 500;
+        const STORAGE_KEY = 'languagePlayerState';
+
+        const audio = document.getElementById('audio');
+        const subtitleDiv = document.getElementById('subtitle');
+        const playbackControls = document.getElementById('playback-controls');
+        const pauseButton = document.getElementById('pauseButton');
+        const mediaStatus = document.getElementById('mediaStatus');
+        const currentTimeDiv = document.getElementById('currentTime');
+
+        if ('mediaSession' in navigator) {
+            navigator.mediaSession.setActionHandler('play', togglePause);
+            navigator.mediaSession.setActionHandler('pause', togglePause);
+            navigator.mediaSession.setActionHandler('nexttrack', nextSubtitle);
+            navigator.mediaSession.setActionHandler('previoustrack', prevSubtitle);
+            mediaStatus.textContent = 'Connected';
+        }
+
+        function autoLoadFiles() {
+            const audioFile = document.getElementById('audioFile').files[0];
+            const srtFile = document.getElementById('srtFile').files[0];
+            
+            if (audioFile && srtFile) {
+                audio.src = URL.createObjectURL(audioFile);
+                isPaused = false;
+                pauseButton.textContent = 'Pause';
+
+                if ('mediaSession' in navigator) {
+                    navigator.mediaSession.metadata = new MediaMetadata({
+                        title: audioFile.name,
+                        artist: 'Language Learning Player',
+                        album: srtFile.name
+                    });
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const text = e.target.result;
+                    const entries = text.trim().split('\n\n');
+                    srtEntries = entries.map(entry => {
+                        const lines = entry.split('\n');
+                        const times = lines[1].split(' --> ');
+                        return {
+                            start: timeToSeconds(times[0]),
+                            end: timeToSeconds(times[1]),
+                            text: lines.slice(2).join('\n')
+                        };
+                    });
+                    
+                    const savedState = localStorage.getItem(STORAGE_KEY);
+                    currentIndex = savedState ? parseInt(savedState) : 0;
+                    
+                    playbackControls.style.display = 'flex';
+                    playCurrentSubtitle();
+                };
+                reader.readAsText(srtFile);
+            }
+        }
+
+        document.getElementById('audioFile').addEventListener('change', autoLoadFiles);
+        document.getElementById('srtFile').addEventListener('change', autoLoadFiles);
+
+        function timeToSeconds(timeStr) {
+            const [hours, minutes, seconds] = timeStr.split(':');
+            const [secs, ms] = seconds.split(',');
+            return parseInt(hours) * 3600 + parseInt(minutes) * 60 + 
+                   parseInt(secs) + parseInt(ms) / 1000;
+        }
+
+        function formatTime(seconds) {
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = Math.floor(seconds % 60);
+            return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function playCurrentSubtitle() {
+            if (currentInterval) {
+                clearInterval(currentInterval);
+            }
+            
+            if (currentIndex >= 0 && currentIndex < srtEntries.length) {
+                const entry = srtEntries[currentIndex];
+                subtitleDiv.textContent = entry.text;
+                currentTimeDiv.textContent = `${currentIndex + 1}/${srtEntries.length} - ${formatTime(entry.start)}`;
+                
+                if (!isPaused) {
+				    audio.muted=!audio.muted
+                    audio.currentTime = entry.start;
+                    audio.play();
+                }
+
+                currentInterval = setInterval(() => {
+                    if (!isPaused && audio.currentTime >= entry.end) {
+                        audio.currentTime = entry.start;
+                        audio.play();
+                    }
+                }, 100);
+            }
+        }
+
+        function togglePause() {
+            isPaused = !isPaused;
+            if (isPaused) {
+                audio.pause();
+                pauseButton.textContent = 'Resume';
+            } else {
+                audio.play();
+                pauseButton.textContent = 'Pause';
+            }
+            
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.playbackState = isPaused ? 'paused' : 'playing';
+            }
+        }
+
+        function saveProgress() {
+            localStorage.setItem(STORAGE_KEY, currentIndex.toString());
+        }
+
+        function nextSubtitle() {
+            if (currentIndex < srtEntries.length - 1) {
+                currentIndex++;
+                playCurrentSubtitle();
+                saveProgress();
+            }
+        }
+
+        function prevSubtitle() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                playCurrentSubtitle();
+                saveProgress();
+            }
+        }
+
+        function goToEntry() {
+            const entryInput = document.getElementById('entryNumber');
+            const targetIndex = parseInt(entryInput.value) - 1;
+            
+            if (targetIndex >= 0 && targetIndex < srtEntries.length) {
+                currentIndex = targetIndex;
+                playCurrentSubtitle();
+                saveProgress();
+            } else {
+                alert(`Please enter a number between 1 and ${srtEntries.length}`);
+            }
+        }
+
+        function changePlaybackSpeed() {
+            const speed = document.getElementById('playbackSpeed').value;
+            audio.playbackRate = parseFloat(speed);
+        }
+
+        audio.addEventListener('sourcechange', () => {
+            if (currentInterval) {
+                clearInterval(currentInterval);
+            }
+            isPaused = false;
+            pauseButton.textContent = 'Pause';
+        });
+
+        audio.addEventListener('ended', () => {
+            if (!isPaused) {
+                audio.currentTime = srtEntries[currentIndex].start;
+                audio.play();
+            }
+        });
+
+        document.addEventListener('keydown', (event) => {
+            switch(event.code) {
+                case 'Space':
+                    togglePause();
+                    event.preventDefault();
+                    break;
+                case 'ArrowRight':
+                case 'KeyN':
+                    nextSubtitle();
+                    event.preventDefault();
+                    break;
+                case 'ArrowLeft':
+                case 'KeyP':
+                    prevSubtitle();
+                    event.preventDefault();
+                    break;
+            }
+        });
+    </script>
+</body>
+</html>
