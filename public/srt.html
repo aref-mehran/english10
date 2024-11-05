@@ -257,13 +257,13 @@
                 currentTimeDiv.textContent = `${currentIndex + 1}/${srtEntries.length} - ${formatTime(entry.start)}`;
                 
                 if (!isPaused) {
-				    audio.muted=!audio.muted
                     audio.currentTime = entry.start;
                     audio.play();
                 }
 
                 currentInterval = setInterval(() => {
                     if (!isPaused && audio.currentTime >= entry.end) {
+	          	    audio.muted=!audio.muted
                         audio.currentTime = entry.start;
                         audio.play();
                     }
